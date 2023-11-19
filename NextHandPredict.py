@@ -10,7 +10,6 @@ TOnumpy = PokerHandData.to_numpy()
 
 X_train = TOnumpy.reshape((TOnumpy.shape[0], 11))
 poker_hand_column = X_train[:, 10]
-
 Y_train = poker_hand_column.reshape(-1,1)
 
 modele = Sequential()
@@ -24,7 +23,7 @@ mysgd = optimizers.SGD(lr=0.01)
 modele.compile(loss='mean_squared_error', optimizer=mysgd)
 print(modele.summary())
 
-for k in range(1000):
+for k in range(5000):
     loss = modele.train_on_batch(X_train, Y_train)
     print('Erreur :',loss)
 
@@ -35,5 +34,6 @@ X_test = TOnumpyTesting.reshape((TOnumpyTesting.shape[0], 11))
 poker_hand_column_test = X_test[:, 10]
 Y_test = poker_hand_column_test.reshape(-1,1)
 
+print('evaluate: ')
 modele.evaluate(X_test, Y_test)
-keras.models.save_model(modele, 'model.h5')
+keras.models.save_model(modele, 'model2.h5')
